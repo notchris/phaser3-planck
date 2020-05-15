@@ -1,7 +1,12 @@
 import webpack from 'webpack';
 
+
 const config: webpack.Configuration = {
-  entry: ['./index.ts'],
+  entry: ['./examples/main.js'],
+  devtool: 'inline-source-map',
+  devServer: {
+    contentBase: './examples'
+  },
   module: {
     rules: [
       {
