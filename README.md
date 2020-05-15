@@ -1,9 +1,37 @@
-# phaser3-planck
+## Installation
 
-## Install
+To install this plugin you'll need npm or yarn
 
-npm install
+### npm
+```
+npm install -S phaser3-planck
+```
 
-## Run
+### yarn
+```
+yarn add phaser3-planck
+```
 
-npm run start
+## Usage
+
+### Setup
+
+First let us import the package and add the config to your game configs global plugins
+
+```js
+import PhaserPlanck from 'phaser3-planck'
+
+plugins: {
+  scene: [
+    { key: 'PhaserPlanck', plugin: PhaserPlanck, mapping: 'planck' }
+  ]
+},
+physics: {
+  planck: {
+    gravity: {
+      x: 0,
+      y: 3
+    }
+  }
+}
+```
