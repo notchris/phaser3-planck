@@ -14,6 +14,8 @@ type PluginOptions = {
   scaleFactor: number
 }
 
+type State = {}
+
 const defaultOptions: PluginOptions = {
   gravity: {
     x: 0,
@@ -28,6 +30,11 @@ class PlanckPhysics extends Phaser.Plugins.ScenePlugin {
   gravity: PluginOptions['gravity']
   scaleFactor: PluginOptions['scaleFactor']
 
+  accumulator: number
+  previousElapsed: number
+
+  tickRate: number
+
   add: {
     box(x: number, y: number, width: number, height: number, isDynamic: boolean, isFixed: boolean): Box
     circle(cx: number, cy: number, radius: number, isDynamic: boolean, isFixed: boolean): Circle
@@ -35,14 +42,21 @@ class PlanckPhysics extends Phaser.Plugins.ScenePlugin {
     polygon(x: number, y: number, points: [number[]], isDynamic: boolean, isFixed: boolean): Polygon
   }
 
-  constructor(scene:Phaser.Scene, pluginManager: Phaser.Plugins.PluginManager) {
+  constructor(scene: Phaser.Scene, pluginManager: Phaser.Plugins.PluginManager) {
     super(scene, pluginManager)
+
     // Temporary type fix on this.game.config.physics.planck
     this.config = { ...defaultOptions, ...(this.game.config.physics as any).planck }
     this.gravity = this.config.gravity
     this.scaleFactor = this.config.scaleFactor;
+
     // Temporary type fix on Phaser.Physics.Planck
     (Phaser.Physics as any).Planck = this
+
+    this.accumulator = 0.0
+    this.previousElapsed = 0.0
+
+    this.tickRate = 1 / 60
   }
 
   boot() {
@@ -65,21 +79,26 @@ class PlanckPhysics extends Phaser.Plugins.ScenePlugin {
     };
 
     const eventEmitter = this.systems.events;
-    eventEmitter.on("postupdate", this.postUpdate, this);
-    eventEmitter.on("shutdown", this.shutdown, this);
-    eventEmitter.on("destroy", this.destroy, this);
+    eventEmitter.on('postupdate', this.postUpdate, this);
+    eventEmitter.on('shutdown', this.shutdown, this);
+    eventEmitter.on('destroy', this.destroy, this);
 
     this.scene.planck = this
   }
 
-  postUpdate() {
-    // TODO: make our physics step take into account
-    // different hz monitors https://cdn.discordapp.com/attachments/617014860101845033/710707700173897778/unknown.png
-    this.world.step(1 / 60)
-    this.world.clearForces()
+  postUpdate(time: number, delta: number) {
+    this.accumulator += ((time - this.previousElapsed) / 1000) // * TimeScale
+    this.previousElapsed = time
+
+    while (this.accumulator >= this.tickRate) {
+      this.world.step(this.tickRate)
+      this.world.clearForces()
+
+      this.accumulator -= this.tickRate
+    }
   }
 
-  shutdown() {}
+  shutdown() { }
   destroy() {
     this.shutdown();
   }

@@ -1,12 +1,16 @@
-require('../dist/main.js');
-console.log('ok')
+import PhaserPlanck from '../dist/main'
+
 var config = {
     type: Phaser.WEBGL,
     width: 800,
     height: 600,
     plugins: {
         scene: [
-          { key: 'PhaserPlanck', plugin: '', mapping: 'planck' }
+          {
+            key: 'PhaserPlanck',
+            plugin: PhaserPlanck,
+            mapping: 'planck'
+          }
         ]
       },
       physics: {

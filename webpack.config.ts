@@ -1,9 +1,12 @@
-import webpack from 'webpack';
+import { Configuration as WebpackConfiguration } from 'webpack'
+import { Configuration as WebpackDevServerConfiguration } from 'webpack-dev-server'
 
+interface Configuration extends WebpackConfiguration {
+  devServer?: WebpackDevServerConfiguration;
+}
 
-const config: webpack.Configuration = {
+const config: Configuration = {
   entry: ['./examples/main.js'],
-  devtool: 'inline-source-map',
   devServer: {
     contentBase: './examples'
   },
@@ -25,11 +28,6 @@ const config: webpack.Configuration = {
   },
   output: {
     libraryTarget: 'umd',
-  },
-  externals: {
-    react: 'commonjs2 react',
-    'react-dom': 'commonjs2 react-dom',
-    phaser: 'commonjs2 phaser'
   }
 };
 
