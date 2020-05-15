@@ -1,3 +1,5 @@
+# Phaser3 Planck Physics Integration
+
 ## Installation
 
 To install this plugin you'll need npm or yarn

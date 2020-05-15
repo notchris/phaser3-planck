@@ -37,12 +37,12 @@ class PlanckPhysics extends Phaser.Plugins.ScenePlugin {
 
   constructor(scene:Phaser.Scene, pluginManager: Phaser.Plugins.PluginManager) {
     super(scene, pluginManager)
-
-    this.config = { ...defaultOptions, ...this.game.config.physics.planck }
+    // Temporary type fix on this.game.config.physics.planck
+    this.config = { ...defaultOptions, ...(this.game.config.physics as any).planck }
     this.gravity = this.config.gravity
     this.scaleFactor = this.config.scaleFactor;
-
-    Phaser.Physics.Planck = this
+    // Temporary type fix on Phaser.Physics.Planck
+    (Phaser.Physics as any).Planck = this
   }
 
   boot() {
