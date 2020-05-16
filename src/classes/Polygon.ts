@@ -33,15 +33,9 @@ class Polygon extends Phaser.GameObjects.Sprite {
     graphics.destroy()
 
     this.setTexture(rnd)
-    this.scene = scene
     this.isDynamic = isDynamic
     this.isFixed = isFixed
     this.scene.add.existing(this)
-
-
-    this.setPosition(x, y)
-    this.x = x
-    this.y = y
 
     this.body = scene.planck.world.createBody()
     if (this.isDynamic) this.body.setDynamic()

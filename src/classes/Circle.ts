@@ -1,5 +1,5 @@
-import Phaser from "phaser";
-import * as Planck from "planck-js";
+import Phaser from 'phaser'
+import * as Planck from 'planck-js'
 
 class Circle extends Phaser.GameObjects.Sprite {
   isDynamic: boolean
@@ -28,15 +28,11 @@ class Circle extends Phaser.GameObjects.Sprite {
     graphics.destroy()
 
     this.setTexture(rnd)
-    this.scene = scene
     this.isDynamic = isDynamic
     this.isFixed = isFixed
     this.scene.add.existing(this)
 
     this.radius = radius
-
-    this.x = x
-    this.y = y
 
     // Body
     this.body = scene.planck.world.createBody()

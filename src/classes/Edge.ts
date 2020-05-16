@@ -27,8 +27,6 @@ class Edge extends Phaser.GameObjects.Sprite {
 
     this.scene.add.existing(this);
 
-    this.x = x;
-    this.y = y;
     this.x2 = x2;
     this.y2 = y2;
 
