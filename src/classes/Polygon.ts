@@ -8,7 +8,7 @@ class Polygon extends Phaser.GameObjects.Sprite {
 
   body: Planck.Body
 
-  constructor(scene: Phaser.Scene, x: number, y: number, points: [number[]], isDynamic: boolean, isFixed: boolean) {
+  constructor(scene: Phaser.Scene, x: number, y: number, points: Array<[number, number]>, isDynamic: boolean, isFixed: boolean) {
     super(scene, x, y, '')
 
     const rnd = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
@@ -20,7 +20,7 @@ class Polygon extends Phaser.GameObjects.Sprite {
     const height = bbox.h
 
     const graphics = scene.add.graphics()
-    graphics.fillStyle(0xff0000, 1)
+    graphics.fillStyle(0xEEEEEE, 1)
     graphics.beginPath()
     graphics.moveTo(points[0][0], points[0][1])
     for (let i = 1; i < points.length; i += 1) {

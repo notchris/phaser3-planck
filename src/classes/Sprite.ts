@@ -1,5 +1,5 @@
-import Phaser from 'phaser';
-import * as Planck from 'planck-js';
+import Phaser from 'phaser'
+import * as Planck from 'planck-js'
 
 class Sprite extends Phaser.GameObjects.Sprite {
   isDynamic: boolean

@@ -18,9 +18,6 @@ type PluginOptions = {
   scaleFactor: number
 }
 
-type State = {}
-
-
 const defaultOptions: PluginOptions = {
   gravity: {
     x: 0,
@@ -39,71 +36,81 @@ class PlanckPhysics extends Phaser.Plugins.ScenePlugin {
   previousElapsed: number
 
   tickRate: number
+  hz: number
 
   add: {
     box(x: number, y: number, width: number, height: number, isDynamic: boolean, isFixed: boolean): Box
     circle(cx: number, cy: number, radius: number, isDynamic: boolean, isFixed: boolean): Circle
     edge(x1: number, y1: number, x2: number, y2: number, isDynamic: boolean): Edge
-    polygon(x: number, y: number, points: [number[]], isDynamic: boolean, isFixed: boolean): Polygon,
-    revoluteJoint(x: number, y: number, bodyA: any, bodyB: any, options: any)
+    polygon(x: number, y: number, points: Array<[number, number]>, isDynamic: boolean, isFixed: boolean): Polygon
+    revoluteJoint(x: number, y: number, bodyA: any, bodyB: any, options: any): RevoluteJoint
   }
 
   constructor(scene: Phaser.Scene, pluginManager: Phaser.Plugins.PluginManager) {
     super(scene, pluginManager)
 
     // Temporary type fix on this.game.config.physics.planck
-    this.config = { ...defaultOptions, ...(this.game.config.physics as any).planck }
+    this.config = { ...defaultOptions, ...(this.game.config.physics as any).planck, ...(this.scene.sys.config as any).planck }
     this.gravity = this.config.gravity
     this.scaleFactor = this.config.scaleFactor;
 
     // Temporary type fix on Phaser.Physics.Planck
     (Phaser.Physics as any).Planck = this
 
-    this.accumulator = 0.0
-    this.previousElapsed = 0.0
-
-    this.tickRate = 1 / 60
+    this.tickRate = 60
+    this.hz = 1 / this.tickRate
   }
 
   boot() {
-    this.world = new Planck.World(Planck.Vec2(this.gravity.x, this.gravity.y));
+    this.world = new Planck.World(Planck.Vec2(this.gravity.x, this.gravity.y))
+
     // is there a better way we can do this?
     this.add = {
       box: (x: number, y: number, width: number, height: number, isDynamic: boolean, isFixed: boolean) => {
-        return new Box(this.scene, x, y, width, height, isDynamic, isFixed);
+        return new Box(this.scene, x, y, width, height, isDynamic, isFixed)
       },
       circle: (cx: number, cy: number, radius: number, isDynamic: boolean, isFixed: boolean) => {
-        return new Circle(this.scene, cx, cy, radius, isDynamic, isFixed);
+        return new Circle(this.scene, cx, cy, radius, isDynamic, isFixed)
       },
       edge: (x1: number, y1: number, x2: number, y2: number, isDynamic: boolean) => {
-        return new Edge(this.scene, x1, y1, x2, y2, isDynamic);
+        return new Edge(this.scene, x1, y1, x2, y2, isDynamic)
       },
-      polygon: (x: number, y: number, points: [number[]], isDynamic: boolean, isFixed: boolean) => {
-        return new Polygon(this.scene, x, y, points, isDynamic, isFixed);
+      polygon: (x: number, y: number, points: Array<[number, number]>, isDynamic: boolean, isFixed: boolean) => {
+        return new Polygon(this.scene, x, y, points, isDynamic, isFixed)
       },
       revoluteJoint: (x: number, y: number, bodyA: any, bodyB: any, options: any) => {
-        return new RevoluteJoint(this.scene, x, y, bodyA, bodyB, options);
+        return new RevoluteJoint(this.scene, x, y, bodyA, bodyB, options)
       }
-    };
+    }
 
-    const eventEmitter = this.systems.events;
-    eventEmitter.on('postupdate', this.postUpdate, this);
-    eventEmitter.on('shutdown', this.shutdown, this);
-    eventEmitter.on('destroy', this.destroy, this);
+    const eventEmitter = this.systems.events
+    eventEmitter.on('create', this.create, this)
+    eventEmitter.on('postupdate', this.postUpdate, this)
+    eventEmitter.on('shutdown', this.shutdown, this)
+    eventEmitter.on('destroy', this.destroy, this)
 
     this.scene.planck = this
   }
 
-    postUpdate(time: number, delta: number) {
-        this.accumulator += delta / 1000;
+  create() {
+    // we have to get our previous elapsed now, since boot runs when the game starts it'll cause
+    // a bunch of steps to happen when a scene is started.
+    this.accumulator = 0
+    this.previousElapsed = performance.now()
+  }
 
-        while (this.accumulator >= this.tickRate) {
-        this.world.step(this.tickRate);
-        this.world.clearForces();
+  postUpdate() {
+    let now = performance.now()
+    this.accumulator += (now - this.previousElapsed) / 1000
 
-        this.accumulator -= this.tickRate;
-        }
+    while (this.accumulator >= this.hz) {
+      this.world.step(this.hz);
+      this.world.clearForces();
+
+      this.accumulator -= this.hz;
     }
+    this.previousElapsed = now
+  }
 
   shutdown() { }
   destroy() {
