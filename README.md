@@ -2,10 +2,10 @@
 This plugin integrates the [Planck.js](http://piqnt.com/planck.js/) (Based on [Box2d](http://box2d.org/documentation/)) physics engine with [Phaser3](https://phaser.io/phaser3), allowing for advanced collision detection and dynamic body types. This plugin is still in development, please feel free to submit a PR or issue to help us improve this integration.
 
 ## Features
-  -⭐ Support for Planck bodies (Box, Circle, Edge, Polygon).
-  -⭐ Continuous Collision Detection (CCD) for bodies with 'Bullet' property.
-  -⭐ Distance Joints, Revolute Joints
-  -⭐ ...and more!
+* ⭐ Support for Planck bodies (Box, Circle, Edge, Polygon).
+* ⭐ Continuous Collision Detection (CCD) for bodies with 'Bullet' property.
+* ⭐ Distance Joints, Revolute Joints
+* ⭐ ...and more!
 
 ## Installation
 
@@ -101,5 +101,5 @@ The central Body class that all bodies extend, provides similar API methods / pr
 Please feel free to post a PR / issue, we are looking for contributors to help with this effort. Thanks!
 
 *You are welcome to contact me on:*
-  - Discord: **notchris#4207**
-  - IRC (Freenode): **notchris**
+* Discord: **notchris#4207**
+* IRC (Freenode): **notchris**
