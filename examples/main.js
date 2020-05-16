@@ -1,6 +1,7 @@
-import PhaserPlanck from '../dist/main'
+import PhaserPlanck from '../src/index';
+import Basic from './scenes/Basic';
 
-var config = {
+const config = {
     type: Phaser.WEBGL,
     width: 800,
     height: 600,
@@ -15,30 +16,14 @@ var config = {
       },
       physics: {
         planck: {
+          scaleFactor: 30,
           gravity: {
             x: 0,
-            y: 3
+            y: 6
           }
         }
       },
-    scene: {
-        preload: preload,
-        create: create
-    }
+    scene: [Basic]
 };
 
-var game = new Phaser.Game(config);
-
-function preload ()
-{
-    this.load.setBaseURL('http://labs.phaser.io');
-
-    this.load.image('sky', 'assets/skies/space3.png');
-    this.load.image('logo', 'assets/sprites/phaser3-logo.png');
-    this.load.image('red', 'assets/particles/red.png');
-}
-
-function create ()
-{
-    console.log('ok')
-}
+const game = new Phaser.Game(config);

@@ -20,7 +20,7 @@ class Box extends Phaser.GameObjects.Sprite {
     this.setTexture(rnd)
     this.isDynamic = isDynamic
     this.isFixed = isFixed
-    this.scene.add.existing(this)
+    this.scene.add.existing(this);
 
     this.width = width
     this.height = height
@@ -37,6 +37,32 @@ class Box extends Phaser.GameObjects.Sprite {
       center: Planck.Vec2(),
       I: this.isFixed ? 0 : 1
     })
+  }
+
+  setAngularDamping (n: number) {
+      this.body.setAngularDamping(n);
+  }
+
+  setAngularVelocity (w: number) {
+    this.body.setAngularVelocity(w);
+  }
+
+  setLinearDamping (n: number) {
+    this.body.setLinearDamping(n);
+  }
+
+  setLinearVelocity (x: number, y: number) {
+    this.body.setLinearVelocity(Planck.Vec2(x, y));
+  }
+
+  // Look into reversing this call.
+  setSleeping (bool: boolean) {
+      this.body.setAwake(bool);
+  }
+
+  // Look into reversing this call.
+  setStatic (bool: boolean) {
+    this.body.setStatic()
   }
 
   preUpdate(time: number, delta: number) {

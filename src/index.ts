@@ -1,10 +1,14 @@
 import * as Phaser from 'phaser'
 import Planck from 'planck-js'
 
+// Body Types
 import Box from './classes/Box'
 import Circle from './classes/Circle'
 import Edge from './classes/Edge'
 import Polygon from './classes/Polygon'
+
+// Joints
+import RevoluteJoint from './classes/RevoluteJoint'
 
 type PluginOptions = {
   gravity: {
@@ -15,6 +19,7 @@ type PluginOptions = {
 }
 
 type State = {}
+
 
 const defaultOptions: PluginOptions = {
   gravity: {
@@ -39,7 +44,8 @@ class PlanckPhysics extends Phaser.Plugins.ScenePlugin {
     box(x: number, y: number, width: number, height: number, isDynamic: boolean, isFixed: boolean): Box
     circle(cx: number, cy: number, radius: number, isDynamic: boolean, isFixed: boolean): Circle
     edge(x1: number, y1: number, x2: number, y2: number, isDynamic: boolean): Edge
-    polygon(x: number, y: number, points: [number[]], isDynamic: boolean, isFixed: boolean): Polygon
+    polygon(x: number, y: number, points: [number[]], isDynamic: boolean, isFixed: boolean): Polygon,
+    revoluteJoint(x: number, y: number, bodyA: any, bodyB: any, options: any)
   }
 
   constructor(scene: Phaser.Scene, pluginManager: Phaser.Plugins.PluginManager) {
@@ -60,8 +66,7 @@ class PlanckPhysics extends Phaser.Plugins.ScenePlugin {
   }
 
   boot() {
-    this.world = new Planck.World(Planck.Vec2(this.gravity.x, this.gravity.y))
-
+    this.world = new Planck.World(Planck.Vec2(this.gravity.x, this.gravity.y));
     // is there a better way we can do this?
     this.add = {
       box: (x: number, y: number, width: number, height: number, isDynamic: boolean, isFixed: boolean) => {
@@ -75,6 +80,9 @@ class PlanckPhysics extends Phaser.Plugins.ScenePlugin {
       },
       polygon: (x: number, y: number, points: [number[]], isDynamic: boolean, isFixed: boolean) => {
         return new Polygon(this.scene, x, y, points, isDynamic, isFixed);
+      },
+      revoluteJoint: (x: number, y: number, bodyA: any, bodyB: any, options: any) => {
+        return new RevoluteJoint(this.scene, x, y, bodyA, bodyB, options);
       }
     };
 
@@ -86,17 +94,16 @@ class PlanckPhysics extends Phaser.Plugins.ScenePlugin {
     this.scene.planck = this
   }
 
-  postUpdate(time: number, delta: number) {
-    this.accumulator += ((time - this.previousElapsed) / 1000) // * TimeScale
-    this.previousElapsed = time
+    postUpdate(time: number, delta: number) {
+        this.accumulator += delta / 1000;
 
-    while (this.accumulator >= this.tickRate) {
-      this.world.step(this.tickRate)
-      this.world.clearForces()
+        while (this.accumulator >= this.tickRate) {
+        this.world.step(this.tickRate);
+        this.world.clearForces();
 
-      this.accumulator -= this.tickRate
+        this.accumulator -= this.tickRate;
+        }
     }
-  }
 
   shutdown() { }
   destroy() {
