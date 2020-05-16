@@ -14,6 +14,7 @@ class Edge extends Phaser.GameObjects.Sprite {
   constructor(scene: Phaser.Scene, x: number, y: number, x2: number, y2: number, isDynamic: boolean) {
     super(scene, x, y, '')
 
+    const rnd = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
     const graphics = scene.add.graphics();
     graphics.lineStyle(4, 0x333333, 1);
     graphics.beginPath();
@@ -21,7 +22,11 @@ class Edge extends Phaser.GameObjects.Sprite {
     graphics.lineTo(x2, y2);
     graphics.closePath();
     graphics.strokePath();
+    graphics.generateTexture(rnd)
+    graphics.destroy()
 
+    this.setTexture(rnd)
+    this.setOrigin(.25, .5)
     this.isDynamic = isDynamic;
     this.isFixed = true;
 
