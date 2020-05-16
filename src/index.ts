@@ -2,13 +2,13 @@ import * as Phaser from 'phaser'
 import Planck from 'planck-js'
 
 // Body Types
-import Box from './classes/Box'
-import Circle from './classes/Circle'
-import Edge from './classes/Edge'
-import Polygon from './classes/Polygon'
+import Box from './classes/bodies/Box'
+import Circle from './classes/bodies/Circle'
+import Edge from './classes/bodies/Edge'
+import Polygon from './classes/bodies/Polygon'
 
 // Joints
-import RevoluteJoint from './classes/RevoluteJoint'
+import RevoluteJoint from './classes/joints/RevoluteJoint'
 
 type PluginOptions = {
   gravity: {
