@@ -18,6 +18,16 @@ const config = {
         }
       ]
     },
+    physics: {
+      planck: {
+        gravity: {
+          x: 0,
+          y: 3
+        }, // 3y is normal
+        scaleFactor: 30,
+        debug: true
+      }
+    },
     scene: [Tests, Basic, RevoluteJoint]
 };
 

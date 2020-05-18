@@ -7,11 +7,12 @@ import * as Planck from 'planck-js'
 
 class Body {
   planckBody: Planck.Body
-
-  constructor(body: Planck.Body) {
+  constructor(scene) {
     
     // this is the internal planck body as this class is only for a custom api
-    this.planckBody = body
+    this.planckBody = scene.planck.world.createBody();
+    this.planckBody.setDynamic();
+    return this;
   }
 
   // Set fixed rotation

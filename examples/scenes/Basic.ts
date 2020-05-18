@@ -6,10 +6,11 @@ class Basic extends Phaser.Scene {
   }
 
   create() {
-    this.planck.add.box(400, 100, 30, 30, true, false)
-    this.planck.add.circle(300, 20, 10, true, true)
-    this.planck.add.edge(200, 300, 600, 300, false)
-    this.planck.add.polygon(340, 100, [[0, 0], [0, 70], [50, 100]], true, false)
+    const box = this.planck.add.box('', 100, 100, 100, 100);
+    const poly = this.planck.add.polygon('', 300, 100, [[0,0],[0,100],[50, 0]]);
+    const ball = this.planck.add.circle('', 200, 20, 20);
+    const edge = this.planck.add.box('', 0, 400, 500, 20);
+    edge.body.setStatic(true);
   }
 }
 

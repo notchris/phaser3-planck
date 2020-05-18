@@ -21,10 +21,10 @@ class Tumbler extends Phaser.Scene {
   create() {
     this.planck.world.setGravity(Planck.Vec2(0, -10))
 
-    this.planck.add.box(400, 100, 30, 30, true, false)
-    this.planck.add.circle(300, 20, 10, true, true)
-    this.planck.add.edge(200, 300, 600, 300, false)
-    this.planck.add.polygon(340, 100, [[0, 0], [0, 70], [50, 100]], true, false);
+    this.planck.add.box('', 100, 100, 30, 30)
+    this.planck.add.circle('', 300, 20, 10)
+    this.planck.add.edge('', 200, 300, 600, 300)
+    this.planck.add.polygon('', 340, 100, [[0, 0], [0, 70], [50, 100]]);
   }
 }
 

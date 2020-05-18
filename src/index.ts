@@ -1,21 +1,21 @@
 import * as Phaser from 'phaser'
 import Planck from 'planck-js'
 
-// Body Types
-import Box from './classes/bodies/Box'
-import Circle from './classes/bodies/Circle'
-import Edge from './classes/bodies/Edge'
-import Polygon from './classes/bodies/Polygon'
+import Sprite from './classes/Sprite';
 
-// Joints
-import RevoluteJoint from './classes/joints/RevoluteJoint'
+import Box from './classes/bodies/Box';
+import Circle from './classes/bodies/Circle';
+import Edge from './classes/bodies/Edge';
+import Polygon from './classes/bodies/Polygon';
+import Poly from 'polygon';
 
 type PluginOptions = {
   gravity: {
     x: number,
     y: number
   }
-  scaleFactor: number
+  scaleFactor: number,
+  debug: boolean
 }
 
 const defaultOptions: PluginOptions = {
@@ -23,7 +23,8 @@ const defaultOptions: PluginOptions = {
     x: 0,
     y: 3
   }, // 3y is normal
-  scaleFactor: 30
+  scaleFactor: 30,
+  debug: false
 }
 
 class PlanckPhysics extends Phaser.Plugins.ScenePlugin {
@@ -39,11 +40,10 @@ class PlanckPhysics extends Phaser.Plugins.ScenePlugin {
   hz: number
 
   add: {
-    box(x: number, y: number, width: number, height: number, isDynamic: boolean, isFixed: boolean): Box
-    circle(cx: number, cy: number, radius: number, isDynamic: boolean, isFixed: boolean): Circle
-    edge(x1: number, y1: number, x2: number, y2: number, isDynamic: boolean): Edge
-    polygon(x: number, y: number, points: Array<[number, number]>, isDynamic: boolean, isFixed: boolean): Polygon
-    revoluteJoint(x: number, y: number, bodyA: any, bodyB: any, options: any): RevoluteJoint
+    box(texture: string, x: number, y: number, width: number, height: number),
+    circle(texture: string, x: number, y: number, radius: number),
+    edge(texture: string, x: number, y: number, x2: number, y2: number),
+    polygon(texture: string, x: number, y: number, points: Array<[number, number]>)
   }
 
   constructor(scene: Phaser.Scene, pluginManager: Phaser.Plugins.PluginManager) {
@@ -66,21 +66,51 @@ class PlanckPhysics extends Phaser.Plugins.ScenePlugin {
 
     // is there a better way we can do this?
     this.add = {
-      box: (x: number, y: number, width: number, height: number, isDynamic: boolean, isFixed: boolean) => {
-        return new Box(this.scene, x, y, width, height, isDynamic, isFixed)
+      box: (texture: string, x: number, y: number, width: number, height: number) => {
+        const body = new Box(this.scene, x, y, width, height)
+        const sprite = new Sprite(this.scene, x, y, texture, body)
+        if (this.config.debug) {
+          sprite.setInteractive(
+            new Phaser.Geom.Rectangle(0, 0, width, height),
+            Phaser.Geom.Rectangle.Contains
+          )
+          this.scene.input.enableDebug(sprite, 0xff00ff);
+        }
+        return sprite;
       },
-      circle: (cx: number, cy: number, radius: number, isDynamic: boolean, isFixed: boolean) => {
-        return new Circle(this.scene, cx, cy, radius, isDynamic, isFixed)
+      circle: (texture: string, x: number, y: number, radius: number) => {
+        const body = new Circle(this.scene, x, y, radius)
+        const sprite = new Sprite(this.scene, x, y, texture, body)
+        if (this.config.debug) {
+          sprite.setInteractive(
+            new Phaser.Geom.Circle(radius, radius, radius),
+            Phaser.Geom.Circle.Contains
+          )
+          this.scene.input.enableDebug(sprite, 0xff00ff);
+        }
+        return sprite
       },
-      edge: (x1: number, y1: number, x2: number, y2: number, isDynamic: boolean) => {
-        return new Edge(this.scene, x1, y1, x2, y2, isDynamic)
+      edge: (texture: string, x: number, y: number, x2: number, y2: number) => {
+        const body = new Edge(this.scene, x, y, x2, y2)
+        const sprite = new Sprite(this.scene, x, y, texture, body)
+        return sprite
       },
-      polygon: (x: number, y: number, points: Array<[number, number]>, isDynamic: boolean, isFixed: boolean) => {
-        return new Polygon(this.scene, x, y, points, isDynamic, isFixed)
+      polygon: (texture: string, x: number, y: number, points: Array<[number, number]>) => {
+        const body = new Polygon(this.scene, x, y, points)
+        const sprite = new Sprite(this.scene, x, y, texture, body)
+        const poly = new Poly(points)
+        const bbox = poly.aabb();
+        if (this.config.debug) {
+          const arr = [];
+          points.forEach((p) => arr.push(new Phaser.Geom.Point(p[0] - bbox.w/2 ,p[1] - bbox.h/2)));
+          sprite.setInteractive(
+            new Phaser.Geom.Polygon(arr),
+            Phaser.Geom.Polygon.Contains
+          )
+          this.scene.input.enableDebug(sprite, 0xff00ff);
+        }
+        return sprite
       },
-      revoluteJoint: (x: number, y: number, bodyA: any, bodyB: any, options: any) => {
-        return new RevoluteJoint(this.scene, x, y, bodyA, bodyB, options)
-      }
     }
 
     const eventEmitter = this.systems.events
