@@ -19,6 +19,9 @@ class Body {
     // this is the internal planck body as this class is only for a custom api
     this.planckBody = scene.planck.world.createBody()
     this.planckBody.setDynamic()
+
+    this.debugShowBody = scene.planck.config.debug
+    this.debugShowVelocity = scene.planck.config.debug
     this.debugBodyColor = 0x0000f
 
     this.scene = scene
