@@ -12,10 +12,11 @@ import RevoluteJoint from './classes/RevoluteJoint'
 
 type PluginOptions = {
   gravity: {
-    x: number,
+    x: number
     y: number
   }
   scaleFactor: number
+  debug: boolean
 }
 
 const defaultOptions: PluginOptions = {
@@ -23,7 +24,8 @@ const defaultOptions: PluginOptions = {
     x: 0,
     y: 3
   }, // 3y is normal
-  scaleFactor: 30
+  scaleFactor: 30,
+  debug: false
 }
 
 class PlanckPhysics extends Phaser.Plugins.ScenePlugin {
@@ -38,6 +40,8 @@ class PlanckPhysics extends Phaser.Plugins.ScenePlugin {
   tickRate: number
   hz: number
 
+  debugGraphics?: Phaser.GameObjects.Graphics
+
   add: {
     box(x: number, y: number, width: number, height: number, isDynamic: boolean, isFixed: boolean): Box
     circle(cx: number, cy: number, radius: number, isDynamic: boolean, isFixed: boolean): Circle
@@ -50,7 +54,7 @@ class PlanckPhysics extends Phaser.Plugins.ScenePlugin {
     super(scene, pluginManager)
 
     // Temporary type fix on this.game.config.physics.planck
-    this.config = { ...defaultOptions, ...(this.game.config.physics as any).planck, ...(this.scene.sys.config as any).planck }
+    this.config = { ...defaultOptions, ...(this.game.config.physics as any).planck }
     this.gravity = this.config.gravity
     this.scaleFactor = this.config.scaleFactor;
 
@@ -97,6 +101,9 @@ class PlanckPhysics extends Phaser.Plugins.ScenePlugin {
     // a bunch of steps to happen when a scene is started.
     this.accumulator = 0
     this.previousElapsed = performance.now()
+
+    // setup our render graphics if debug is on.
+    if (this.config.debug) this.debugGraphics = this.scene.add.graphics()
   }
 
   postUpdate() {
@@ -104,17 +111,17 @@ class PlanckPhysics extends Phaser.Plugins.ScenePlugin {
     this.accumulator += (now - this.previousElapsed) / 1000
 
     while (this.accumulator >= this.hz) {
-      this.world.step(this.hz);
-      this.world.clearForces();
+      this.world.step(this.hz)
+      this.world.clearForces()
 
-      this.accumulator -= this.hz;
+      this.accumulator -= this.hz
     }
     this.previousElapsed = now
   }
 
   shutdown() { }
   destroy() {
-    this.shutdown();
+    this.shutdown()
   }
 }
 
