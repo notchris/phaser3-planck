@@ -9,6 +9,7 @@ const config = {
     type: Phaser.WEBGL,
     width: 800,
     height: 600,
+    scene: [Tests, Basic, RevoluteJoint],
     plugins: {
       scene: [
         {
@@ -18,7 +19,11 @@ const config = {
         }
       ]
     },
-    scene: [Tests, Basic, RevoluteJoint]
+    physics: {
+      planck: {
+        debug: true
+      }
+    }
 };
 
 new Phaser.Game(config)

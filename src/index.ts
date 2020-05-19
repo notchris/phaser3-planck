@@ -55,6 +55,7 @@ class PlanckPhysics extends Phaser.Plugins.ScenePlugin {
 
     // Temporary type fix on this.game.config.physics.planck
     this.config = { ...defaultOptions, ...(this.game.config.physics as any).planck }
+
     this.gravity = this.config.gravity
     this.scaleFactor = this.config.scaleFactor;
 
@@ -103,7 +104,10 @@ class PlanckPhysics extends Phaser.Plugins.ScenePlugin {
     this.previousElapsed = performance.now()
 
     // setup our render graphics if debug is on.
-    if (this.config.debug) this.debugGraphics = this.scene.add.graphics()
+    if (this.config.debug) {
+      this.debugGraphics = this.scene.add.graphics()
+      this.debugGraphics.setDepth(Number.MAX_VALUE)
+    }
   }
 
   postUpdate() {
