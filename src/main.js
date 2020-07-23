@@ -1,6 +1,6 @@
 import './style.css'
 import Phaser from 'phaser'
-import PhaserPlanck from './PhaserPlanck'
+import PhaserPlanck from './'
 
 // Demo Scenes
 import Basic from './scenes/Basic'
