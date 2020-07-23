@@ -1,33 +1,48 @@
 {
-  "name": "phaser3-planck",
-  "version": "1.2.3",
-  "description": "a phaser plugin for the planckjs box2d port",
-  "main": "./dist/main.js",
-  "types": "./dist/main.d.ts",
-  "repository": "https://github.com/notchris/phaser3-planck",
-  "author": "notchris",
-  "license": "MIT",
-  "scripts": {
-    "build": "webpack -p ./src/index.ts",
-    "dev": "webpack-dev-server --mode development --open --hot --display-error-details"
-  },
-  "dependencies": {
-    "@types/polygon": "^1.0.0",
-    "planck-js": "^0.3.13",
-    "polygon": "^1.0.2"
-  },
-  "devDependencies": {
-    "@types/webpack": "^4.41.10",
-    "@types/webpack-dev-server": "^3.10.1",
-    "phaser": "^3.22.0",
-    "ts-loader": "^6.2.2",
-    "ts-node": "^8.8.1",
-    "typescript": "^3.8.3",
-    "webpack": "^4.42.1",
-    "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.11.0"
-  },
-  "peerDependencies": {
-    "phaser": "^3.22.0"
-  }
+    "name": "phaser3-planck",
+    "version": "0.0.1",
+    "description": "...",
+    "author": "notchris",
+    "license": "MIT",
+    "repository": {},
+    "bugs": {},
+    "keywords": [],
+    "main": "main.js",
+    "entry": "./src/main.js",
+    "scripts": {
+        "start": "cross-env NODE_ENV=development webpack-dev-server --open --hot --display-error-details",
+        "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
+    },
+    "homepage": "",
+    "dependencies": {
+        "@babel/polyfill": "^7.2.5",
+        "phaser": "^3.23.0",
+        "planck-js": "^0.3.12"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.2.3",
+        "@babel/core": "^7.2.2",
+        "@babel/preset-env": "^7.2.3",
+        "babel-loader": "^8.0.5",
+        "clean-webpack-plugin": "^1.0.0",
+        "copy-webpack-plugin": "^4.6.0",
+        "cross-env": "^5.2.0",
+        "css-loader": "^0.28.11",
+        "eslint": "^4.19.1",
+        "eslint-config-airbnb-base": "^13.0.0",
+        "eslint-loader": "^2.0.0",
+        "eslint-plugin-import": "^2.13.0",
+        "file-loader": "^1.1.11",
+        "html-webpack-plugin": "^3.2.0",
+        "mini-css-extract-plugin": "^0.4.1",
+        "optimize-css-assets-webpack-plugin": "^4.0.3",
+        "raw-loader": "^4.0.0",
+        "style-loader": "^0.21.0",
+        "terser-webpack-plugin": "^1.2.1",
+        "url-loader": "^3.0.0",
+        "webpack": "^4.14.0",
+        "webpack-cli": "^3.0.8",
+        "webpack-dev-server": "^3.1.4",
+        "webpack-glsl-loader": "^1.0.1"
+    }
 }
