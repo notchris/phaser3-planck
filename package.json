@@ -1,12 +1,15 @@
 {
     "name": "phaser3-planck",
-    "version": "0.0.1",
-    "description": "...",
+    "version": "0.0.2",
+    "description": "Integrates Planck-js physics with Phaser3.",
     "author": "notchris",
     "license": "MIT",
-    "repository": {},
+    "repository": {
+        "type": "npm",
+        "url": "https://www.npmjs.com/package/phaser3-planck"
+    },
     "bugs": {},
-    "keywords": [],
+    "keywords": ["planck", "phaser3", "plugin", "physics", "collision"],
     "main": "main.js",
     "entry": "./src/main.js",
     "scripts": {
