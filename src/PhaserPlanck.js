@@ -8,7 +8,7 @@ import Phaser from 'phaser'
 import * as Planck from 'planck-js'
 import Sprite from './classes/Sprite'
 
-export default class PlanckPhysics extends Phaser.Plugins.ScenePlugin {
+export default class PhaserPlanck extends Phaser.Plugins.ScenePlugin {
   constructor(scene, pluginManager) {
     super(scene, pluginManager)
 
@@ -30,7 +30,7 @@ export default class PlanckPhysics extends Phaser.Plugins.ScenePlugin {
       }
     }
 
-    Phaser.Physics.PlanckPhysics = this
+    Phaser.Physics.PhaserPlanck = this
     this.scene = scene
     this.world = new Planck.World(Planck.Vec2(config.gravity.x, config.gravity.y))
     this.sprites = []
@@ -99,6 +99,6 @@ export default class PlanckPhysics extends Phaser.Plugins.ScenePlugin {
   }
 }
 
-PlanckPhysics.register = function(PluginManager) {
-  PluginManager.register("PlanckPhysics", PlanckPhysics, "PlanckPhysics")
+PhaserPlanck.register = function(PluginManager) {
+  PluginManager.register("PhaserPlanck", PhaserPlanck, "PhaserPlanck")
 }

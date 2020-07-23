@@ -1,6 +1,6 @@
 import './style.css'
 import Phaser from 'phaser'
-import PlanckPhysics from './PlanckPhysics'
+import PhaserPlanck from './PhaserPlanck'
 
 // Demo Scenes
 import Basic from './scenes/Basic'
@@ -25,12 +25,13 @@ const config = {
     height: 480,
     plugins: {
         scene: [
-            { key: 'planckPhysics', plugin: PlanckPhysics, mapping: 'planck' }
+            { key: 'PhaserPlanck', plugin: PhaserPlanck, mapping: 'planck' }
         ]
     },
     physics: {
         planck: {
             debug: true,
+            scaleFactor: 30,
             gravity: {
                 x: 0,
                 y: 3
