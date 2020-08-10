@@ -4,6 +4,7 @@ This plugin integrates the [Planck.js](http://piqnt.com/planck.js/) (Based on [B
 ![](./example.gif)
 
 ## Examples
+* [Github] (https://github.com/notchris/phaser3-planck)
 * [Online Sandbox](https://notchris.net/phaser3-planck/)
 * [Examples Source](https://github.com/notchris/phaser3-planck/tree/master/src/scenes)
 

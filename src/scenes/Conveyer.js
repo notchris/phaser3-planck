@@ -39,14 +39,14 @@ export default class Conveyer extends Phaser.Scene {
     // Ground Sprite
     const groundSprite = this.planck.add.sprite(0, 400, 'demo_conveyer_ground')
     groundSprite.setBody('box')
-    groundSprite.body.setStatic()
+    groundSprite.setStatic()
 
     // Conveyer Sprite
     const conveyerSprite = this.planck.add.sprite(170, 200, 'demo_conveyer_platform')
     conveyerSprite.setBody('box', {
       friction: 0.8
     })
-    conveyerSprite.body.setStatic()
+    conveyerSprite.setStatic()
     
     conveyerSprite.setConveyer(true, 2.0) // Bool, Speed
 

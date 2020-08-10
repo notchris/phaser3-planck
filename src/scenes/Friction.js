@@ -24,8 +24,8 @@ export default class Friction extends Phaser.Scene {
     // Ground Sprite
     const groundSprite = this.planck.add.sprite(0, 400, 'demo_friction_ground')
     groundSprite.setBody('box')
-    groundSprite.body.setTransform(groundSprite.body.getPosition(), Phaser.Math.DegToRad(15))
-    groundSprite.body.setStatic()
+    groundSprite.setRotation(Phaser.Math.DegToRad(15))
+    groundSprite.setStatic()
 
     // Box Texture
     const boxTexture = this.add.graphics()

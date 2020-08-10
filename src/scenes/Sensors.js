@@ -46,23 +46,23 @@ export default class Sensors extends Phaser.Scene {
       friction: 0.8
     })
     sensorSpriteA.body.setStatic()
-    sensorSpriteA.fixture.setSensor(true)
+    sensorSpriteA.setSensor()
 
     // Sensor Sprite B
     const sensorSpriteB = this.planck.add.sprite(170, 250, 'demo_sensors_sensor')
     sensorSpriteB.setBody('box', {
       friction: 0.8
     })
-    sensorSpriteB.body.setStatic()
-    sensorSpriteB.fixture.setSensor(true)
+    sensorSpriteB.setStatic()
+    sensorSpriteB.setSensor()
 
     // Sensor Sprite C
     const sensorSpriteC = this.planck.add.sprite(170, 300, 'demo_sensors_sensor')
     sensorSpriteC.setBody('box', {
       friction: 0.8
     })
-    sensorSpriteC.body.setStatic()
-    sensorSpriteC.fixture.setSensor(true)
+    sensorSpriteC.setStatic()
+    sensorSpriteC.setSensor()
 
   
 

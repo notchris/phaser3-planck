@@ -11,6 +11,7 @@ import Force from './scenes/Force'
 import Conveyer from './scenes/Conveyer'
 import Events from './scenes/Events'
 import Sensors from './scenes/Sensors'
+import PositionRotation from './scenes/PositionRotation'
 
 // Current Demo
 let current = 'Basic'
@@ -20,7 +21,7 @@ const config = {
     canvas: document.querySelector('#canvas'),
     antialias: true,
     pixelArt: false,
-    scene: [Basic, Restitution, Friction, Force, Edges, Conveyer, Events, Sensors],
+    scene: [Basic, Restitution, Friction, Force, Edges, Conveyer, Events, Sensors, PositionRotation],
     width: 640,
     height: 480,
     plugins: {

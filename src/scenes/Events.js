@@ -24,7 +24,7 @@ export default class Events extends Phaser.Scene {
     // Ground Sprite
     const groundSprite = this.planck.add.sprite(0, 400, 'demo_events_ground')
     groundSprite.setBody('box')
-    groundSprite.body.setStatic()
+    groundSprite.setStatic()
 
     // Ball Texture
     const ballTexture = this.add.graphics()

@@ -24,7 +24,7 @@ export default class Basic extends Phaser.Scene {
     // Ground Sprite
     const groundSprite = this.planck.add.sprite(0, 400, 'demo_basic_ground')
     groundSprite.setBody('box')
-    groundSprite.body.setStatic()
+    groundSprite.setStatic()
 
     // Box Texture
     const boxTexture = this.add.graphics()
@@ -55,14 +55,14 @@ export default class Basic extends Phaser.Scene {
     // Polygon
     const box = this.planck.add.sprite(100, 300, 'box')
     box.setBody('box')
-    box.body.setStatic(true)
+    box.setStatic()
 
     // Polygon
     const poly  = this.planck.add.sprite(300, 200, 'poly')
     poly.setBody('polygon', {
       points: [[0,64],[64, 64], [64, 0]]
     })
-    poly.body.setStatic(true)
+    poly.setStatic()
 
 
     // Ball Drop Timer

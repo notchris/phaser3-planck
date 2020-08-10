@@ -122,7 +122,63 @@ export default class Sprite extends Phaser.GameObjects.Sprite {
         this.conveyer = bool
         this.conveyerSpeed = speed || 0
     }
-    
+
+    setPosition (x, y) {
+        if (!this.body) return
+        this.body.setTransform(
+            new Planck.Vec2(
+                x / this.scene.planck.scaleFactor,
+                y / this.scene.planck.scaleFactor
+            ),
+            this.body.getAngle()
+        )
+    }
+
+    getPosition () {
+        if (!this.body) return
+        return new Phaser.Math.Vector2(
+            this.x,
+            this.y
+        )
+    }
+
+    setRotation (angle) {
+        if (!this.body) return
+        this.body.setTransform(
+            this.body.getPosition(),
+            angle
+        )
+    }
+
+    getRotation () {
+        if (!this.body) return
+        return this.body.getAngle()
+    }
+
+    setStatic () {
+        if (!this.body) return
+        this.body.setStatic(true)
+    }
+
+    setDynamic () {
+        if (!this.body) return
+        this.body.setDynamic(true)
+    }
+
+    setSensor () {
+        if (!this.fixture) return
+        this.fixture.setSensor(true)
+    }
+
+    isSensor () {
+        if (!this.fixture) return false
+        return this.fixture.isSensor()
+    }
+
+    /**
+     * Custom debug draw
+     * Note: This should really be replaced with a shader or something.
+     */
     drawDebug () {
         this.graphics.clear()
         this.graphics.lineStyle(2, 0x0000FF, 1)
