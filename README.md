@@ -86,7 +86,38 @@ edge.setBody('edge', {
 ### Configuring Bodies
 The central Body class that all bodies extend, provides similar API methods / properties to Planck. A list of these properties / methods is listed below.
 
-``` TODO ```
+**Important:**
+When using native Planck methods (on sprite.body), you must pass metric values. Sprite values are converted automatically from metric to screen coordinates within their preUpdate method. We include some convinience methods (listed below) that accept screen coordinates, which are then converted to metric. These methods can be used directly on the sprite class.
+___
+
+### Sprite methods
+
+##### .setPosition (x, y)
+Updates the position of the sprite
+
+##### .getPosition ()
+Returns the position (in screen coordinates) of the sprite
+
+##### .setRotation (radians)
+Updates the rotation of the sprite (accepts radians)
+
+##### .getRotation ()
+Returns the rotation (in radians) of the sprite
+
+##### .setStatic ()
+Sets the current sprite body to static (will not be affected by gravity). Static bodies can still be transformed
+
+##### .setDynamic ()
+Sets the current sprite body to dynamic (will be affected by gravity). Bodies are dynamic by default.
+
+##### .setSensor ()
+Sets the current sprite body behavior to 'sensor'. Sensors will not collide with other bodies, but will still fire collision events
+
+##### .isSensor ()
+Returns true if the current body is a sensor
+
+___
+
 
 ## Status
 #### Bodies
