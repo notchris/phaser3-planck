@@ -84,10 +84,10 @@ edge.setBody('edge', {
 ```
 
 ### Configuring Bodies
-The central Body class that all bodies extend, provides similar API methods / properties to Planck. A list of these properties / methods is listed below.
+The central Body class that all bodies extend, provides similar API methods / properties to Planck. A list of these properties / methods can be viewed below.
 
 **Important:**
-When using native Planck methods (on sprite.body), you must pass metric values. Sprite values are converted automatically from metric to screen coordinates within their preUpdate method. We include some convinience methods (listed below) that accept screen coordinates, which are then converted to metric. These methods can be used directly on the sprite class.
+When using native Planck methods (on sprite.body), you must pass metric values. Sprite values are converted automatically from metric to screen coordinates within their preUpdate method. We include some convenience methods (listed below) that accept screen coordinates, which are then converted to metric. These methods can be used directly on the sprite class.
 ___
 
 ### Sprite methods
