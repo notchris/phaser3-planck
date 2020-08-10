@@ -43,7 +43,7 @@ export default class Edges extends Phaser.Scene {
 
     // Edge
 
-    const edgeA = this.planck.add.sprite(0,0,'edge')
+    const edgeA = this.planck.add.sprite(0,0, null)
     edgeA.setBody('edge', {
       x1: 100,
       y1: 100,
@@ -51,7 +51,7 @@ export default class Edges extends Phaser.Scene {
       y2: 200
     })
 
-    const edgeB = this.planck.add.sprite(0,0,'edge')
+    const edgeB = this.planck.add.sprite(0,0, null)
     edgeB.setBody('edge', {
       x1: 500,
       y1: 300,

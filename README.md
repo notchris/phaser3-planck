@@ -11,6 +11,7 @@ This plugin integrates the [Planck.js](http://piqnt.com/planck.js/) (Based on [B
 * Support for Planck bodies (Box, Circle, Polygon, Edge)
 * Distance Joints, Revolute Joints, Conveyers
 * Sensors & Collision Filtering
+* Trajectory projection
 * ...and more!
 
 ## Installation

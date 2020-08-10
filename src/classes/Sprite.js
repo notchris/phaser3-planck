@@ -9,6 +9,9 @@ export default class Sprite extends Phaser.GameObjects.Sprite {
         this.type = null
 
         this.setTexture(texture)
+        if (!texture) {
+            this.setVisible(false)
+        }
         this.x = x
         this.y = y
         this.scene.add.existing(this)

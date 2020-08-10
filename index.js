@@ -6,7 +6,7 @@
 
 import Phaser from 'phaser'
 import * as Planck from 'planck-js'
-import Sprite from './classes/Sprite'
+import Sprite from './src/classes/Sprite'
 
 export default class PhaserPlanck extends Phaser.Plugins.ScenePlugin {
   constructor(scene, pluginManager) {
