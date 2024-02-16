@@ -1,4 +1,7 @@
 # Phaser3 Planck Physics Plugin
+
+** The start of a TS version is here:  [phaser-planck-ts](https://github.com/notchris/phaser-planck-ts) **
+
 This plugin integrates the [Planck.js](http://piqnt.com/planck.js/) (Based on [Box2d](http://box2d.org/documentation/)) physics engine with [Phaser3](https://phaser.io/phaser3), allowing for advanced collision detection and dynamic body types. This plugin is still in development, please feel free to submit a PR or issue to help us improve this integration.
 
 ![](./example.gif)
