@@ -156,5 +156,5 @@ Created by notchris & KingCosmic
 Please feel free to post a PR / issue, we are looking for contributors to help with this effort. Thanks!
 
 *You are welcome to contact me on:*
-* Discord: **notchris#4207**
-* IRC (Freenode): **notchris**
+* Discord: **notchr.is**
+* IRC: **notchris**
